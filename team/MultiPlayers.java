@@ -1,5 +1,4 @@
-package blackJack;
-
+package team;
 
 import java.util.Scanner;
 
@@ -13,10 +12,8 @@ public class MultiPlayers {
     public void multiPlayers() {
         Scanner sc = new Scanner(System.in);
 
-
         // method of many players;///////////////////
-        System.out.println("1 player? Press \"ENTER\";"+
-                "\nOr type in number of players: ");
+        System.out.println("Number of players? (Default 1)");
 
         int numberOfPlayers = 1;    // default number:1
 
@@ -36,8 +33,7 @@ public class MultiPlayers {
 //        System.out.println("Number of Players: " + numberOfPlayers);
 
 //        System.out.println("Name of each players:");
-        System.out.println("Use default name(s)? Press \"ENTER\";"+
-                        "\nOr enter your name(s).");
+        System.out.println("Type in your own names (or just click \"ENTER\"):");
 
 
         String s2 = sc.nextLine();

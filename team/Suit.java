@@ -1,4 +1,4 @@
-package TeamWork;
+package team;
 
 public enum Suit {
 

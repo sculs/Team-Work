@@ -1,4 +1,4 @@
-package blackJack;
+package team;
 
 public class Hand {
 

@@ -1,4 +1,4 @@
-package blackJack;
+package team;
 
 /**
  * This class implement a card type
