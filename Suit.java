@@ -1,4 +1,3 @@
-package blackJack;
 
 public enum Suit {
 
