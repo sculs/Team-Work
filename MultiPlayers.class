@@ -15,7 +15,7 @@ public class MultiPlayers {
 
 
         // method of many players;///////////////////
-        System.out.println("1player ? Press \"ENTER\";"+
+        System.out.println("1 player? Press \"ENTER\";"+
                 "\nOr type in number of players: ");
 
         int numberOfPlayers = 1;    // default number:1
@@ -35,9 +35,9 @@ public class MultiPlayers {
 
 //        System.out.println("Number of Players: " + numberOfPlayers);
 
-        System.out.println("Name of each players:");
-        System.out.println("Use default name(s) ? Press \"ENTER\";"+
-                        "\nOr enter your name (s).");
+//        System.out.println("Name of each players:");
+        System.out.println("Use default name(s)? Press \"ENTER\";"+
+                        "\nOr enter your name(s).");
 
 
         String s2 = sc.nextLine();
