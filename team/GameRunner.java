@@ -6,6 +6,22 @@ public class GameRunner {
 
     public static void main(String[] args) {
 
+
+        /// This part aims to get multi players number & their names;
+        Player play = new Player();
+        Player [] players = play.multiPlayers();
+
+        int numberOfPlayers = players.length;
+        System.out.println(numberOfPlayers);
+
+        for (int i = 0; i < numberOfPlayers; i++) {
+            String s = players[i].getName();
+            System.out.println(s);
+        }
+        //// Multi players part ends here. When we submit, Print lines should be deleted.
+
+
+
         Scanner sc = new Scanner(System.in);
 
         // initialize deck
@@ -13,17 +29,19 @@ public class GameRunner {
 
         // initialize player objects
         Player one = new Player("Marco");
+//        Hand one = new Hand();
         Player dealer = new Player ("Dealer");
 
         one.addCard(theDeck.dealNextCard());
+
         dealer.addCard(theDeck.dealNextCard());
         one.addCard(theDeck.dealNextCard());
         dealer.addCard(theDeck.dealNextCard());
 
         // print initial hands
         System.out.println("Cards are dealt\n");
-        one.printHand(true);
-        dealer.printHand(false);
+        one.printHand(one.getName(), true);
+        dealer.printHand(dealer.getName(), false);
         System.out.println("\n");
 
         // flags for when each player is finished hitting
@@ -45,7 +63,7 @@ public class GameRunner {
 
                     //add next card in the deck and store whether player is busted
                     oneDone = !one.addCard(theDeck.dealNextCard());
-                    one.printHand(true);
+                    one.printHand(one.getName(),true);
 
                 } else {
                     oneDone = true;
@@ -58,10 +76,10 @@ public class GameRunner {
 
             //dealer´s turn
             if (!dealerDone) {
-                if (dealer.getHandSum() < 17) {
+                if (dealer.getSum() < 17) {
                     System.out.println("The dealer hits\n");
                     dealerDone = !dealer.addCard(theDeck.dealNextCard());
-                    dealer.printHand(false);
+                    dealer.printHand(dealer.getName(),false);
                 } else {
                     System.out.println("The dealer stays\n");
                     dealerDone = true;
@@ -73,11 +91,11 @@ public class GameRunner {
         sc.close();
 
 //        print final hands
-        one.printHand(true);
-        dealer.printHand(true);
+        one.printHand(one.getName(), true);
+        dealer.printHand(dealer.getName(), true);
 
-        int oneSum = one.getHandSum();
-        int dealerSum = dealer.getHandSum();
+        int oneSum = one.getSum();
+        int dealerSum = dealer.getSum();
 
         if (oneSum > dealerSum && oneSum <= 21 || dealerSum > 21) {
             System.out.println("You win");
@@ -87,6 +105,7 @@ public class GameRunner {
 
 
     }
+
 
 }
 

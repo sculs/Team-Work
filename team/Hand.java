@@ -6,6 +6,17 @@ public class Hand {
     private int numCards;
 
 
+    // Constructor ////////////////////////////
+    public Hand(Card[] cards, int numCards) {
+        this.cards = cards;
+        this.numCards = numCards;
+    }
+
+    public Hand() {
+    }
+
+
+    /// Methods //////////////////////////////
     public void empty(){
         for (int i = 0; i < 10; i++) {
             cards[i] = null;
@@ -75,5 +86,22 @@ public class Hand {
         }
     }
 
+    public Card[] getCards() {
+        return cards;
+    }
 
+    public void setCards(Card[] cards) {
+        this.cards = cards;
+    }
+
+    public int getNumCards() {
+        return numCards;
+    }
+
+    public void setNumCards(int numCards) {
+        if (numCards < 0){
+            this.numCards = 0;
+        }
+        this.numCards = numCards;
+    }
 }

@@ -17,12 +17,17 @@ public class Card {
      */
     private int myNumber;
 
+    public Card() {
+    }
+
     /**
      * Card constructor
      *
      * @param aSuit      the suit of the card
      * @param aNumber    the number of the card
      */
+
+
     public Card(Suit aSuit, int aNumber) {
 
         this.mySuit = aSuit;
