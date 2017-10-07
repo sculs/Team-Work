@@ -8,24 +8,18 @@ public class GameRunner {
 
     public static void main(String[] args) {
 
-//        Scanner sc = new Scanner(System.in);
-
         Game game = new Game();
         GameRunner run = new GameRunner();
         Player player = new Player();
-//        String s = sc.next();
-//        System.out.println(s);  // Debug2;
         Player[] players = player.multiPlayers();   /// multi players;
         Player dealer = new Player("Dealer");
 
         Deck theDeck = new Deck(7, true);
 
-
         int numberOfPlayers = players.length;
         boolean playAgain = true;
         boolean oneDone = false;
         boolean dealerDone = false;
-        String ans, ans2;
         int money[] = new int[numberOfPlayers];
         int bet[] = new int[numberOfPlayers];
 
@@ -42,11 +36,16 @@ public class GameRunner {
 
             // Option for bet;
             for (int i = 0; i < numberOfPlayers; i++) {
-                System.out.println("\n" + players[i].getName() +
-                        ", Wanna bet?(Enter amount):\nOr press \"ENTER\" to skip");
-                String s = sc.nextLine();
-                bet[i] = run.checkNumber(s);
                 money[i] = 100;
+
+                System.out.println("\n" + players[i].getName() +
+                        ", Bet amount(You have " +money[i] + "$):\nOr press \"ENTER\" to skip");
+                String s1 = sc.nextLine();
+
+                while (!run.checkNumber(s1)) {
+                    s1 = sc.nextLine();
+                }
+                bet[i] = Integer.parseInt(s1);
                 money[i] = game.bet(money[i], bet[i]);
             }
 
@@ -68,7 +67,7 @@ public class GameRunner {
                 if (game.blackJack(players[i])) {
                     System.out.println(players[i].getName() + " win " + 3 * bet[i]);
                     money[i] += 3 * bet[i];
-                    System.out.println(players[i].getName() + "'s actual stack is: " + money[i] + "\n");
+                    System.out.println(players[i].getName() + "'s actual stack is: " + money[i] + "$\n");
                     blackJack = true;
                 }
                 if ((i == numberOfPlayers - 1) && blackJack) {
@@ -100,42 +99,46 @@ public class GameRunner {
             }
 
 
-                // At last, print final hands;
+            // At last, print final hands;
 //            dealer.printHand(dealer.getName(), true);
             System.out.println("\nRESULT:");
             int dealerSum = dealer.getSum();
-            for (int i = 0; i < numberOfPlayers; i++) {
+            System.out.println("Total for dealer: " + dealer.getSum());
 
+            for (int i = 0; i < numberOfPlayers; i++) {
                 int oneSum = players[i].getSum();
-                players[i].printHand(players[i].getName(), true);
+//                players[i].printHand(players[i].getName(), true);
                 System.out.printf("Total for %s is %s%n%n", players[i].getName(), oneSum);
 
                 if ((oneSum > dealerSum || dealerSum > 21) && oneSum <= 21) {
-                    System.out.printf("Total for %s is %s%n", players[i].getName(), oneSum);
+//                    System.out.printf("Total for %s is %s%n", players[i].getName(), oneSum);
                     System.out.printf("%s wins against the dealer!", players[i].getName());
 
                     money[i] += 2 * bet[i];
-                    System.out.println(players[i].getName() + " actual stack is: " + money[i] + "\n");
+//                    System.out.println(players[i].getName() + " actual stack is: " + money[i] + "\n");
                 }
 
                 else if ((oneSum <= dealerSum || oneSum > 21) && dealerSum <= 21) {
-                    System.out.println("Total for dealer: " + dealer.getSum());
+//                    System.out.println("Total for dealer: " + dealer.getSum());
                     System.out.println("Dealer wins against " + players[i].getName());
                     money[i] -= bet[i];
-                    System.out.println(players[i].getName() + "'s actual stack is: " +money[i] + "\n");
+//                    System.out.println(players[i].getName() + "'s actual stack is: " +money[i] + "\n");
                 }
                 else {   //(dealerSum > 21 && oneSum > 21)
                     System.out.printf("It should be impossible to enter here.(Both are busted)");
                 }
+                System.out.println(players[i].getName() + "'s actual stack is: " +money[i] + "$\n");
+
 
             }
 
 
             boolean replay = true;
+            String s2;
             while (replay) {
                 System.out.println("\nPlay again? y/n\n");
-                ans2 = sc.next();
-                if (ans2.compareToIgnoreCase("Y") == 0) {
+                s2 = sc.next();
+                if (s2.compareToIgnoreCase("Y") == 0) {
                     playAgain = true;
                     replay = false;
                     for (int i = 0; i < numberOfPlayers; i++) {
@@ -145,10 +148,9 @@ public class GameRunner {
                     dealer.empty();
 
                 }
-                else if (ans2.compareToIgnoreCase("N") == 0) {
+                else if (s2.compareToIgnoreCase("N") == 0) {
                     playAgain = false;
                     replay = false;
-                    sc.close();
                     System.out.println("Thank you for playing. Bye Bye!!!");
                     System.exit(0);
 
@@ -156,13 +158,16 @@ public class GameRunner {
                 else {
                     System.err.println("input wrong, try again ");
                     replay = true;
-                    ans2 = sc.next();
+                    s2 = sc.next();
                 }
 
             }
 
         }
     }
+
+
+
 
     public boolean checkInput(String s){
         if (s.equals(""))
@@ -171,29 +176,29 @@ public class GameRunner {
             return true;
     }
 
-    public int checkNumber(String s){
-
+    public boolean checkNumber(String s){
 
         if (s.equals("")) {
-            return 0;
+            return false;
         }
 
         while ( !s.equals("")) {
             try {
                 int a = Integer.parseInt(s);
                 if (a > 0){
-                    return a;
+                    return true;
                 }
                 else {
                     System.out.println("Number should be above 0:");
-                    return 0;
+                    return false;
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter an integer:");
-                return 0;
+                return false;
             }
         }
-        return 0;
+
+        return false;
     }
 
 

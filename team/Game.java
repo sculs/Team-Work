@@ -82,13 +82,13 @@ public class Game {
     public int bet(int leftMoney, int bet) {
 
         if (bet != 0) {
-        System.out.println("Your actual stack is: " + leftMoney);
+            System.out.println("Your actual stack is: " + leftMoney + "$");
             leftMoney -= bet;
-            System.out.print("Bet: " + bet + ", and left: " + leftMoney);
+            System.out.print("Bet: " + bet + "$, and left: " + leftMoney + "$");
 
         }
         else if (bet == 0){
-            System.out.println("No bet, your have " + leftMoney + " left.");
+            System.out.println("No bet, your have " + leftMoney + "$ left.");
         }
         return leftMoney;
     }
