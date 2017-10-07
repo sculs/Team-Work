@@ -26,8 +26,8 @@ public class GameRunner {
         boolean oneDone = false;
         boolean dealerDone = false;
         String ans, ans2;
-        int money = 100;
-        int bet;
+        int money[] = new int[numberOfPlayers];
+        int bet[] = new int[numberOfPlayers];
 
         while (playAgain) {
 
@@ -41,107 +41,119 @@ public class GameRunner {
             dealer.addCard(theDeck.dealNextCard());
 
             // Option for bet;
-            System.out.println("\nWanna bet?(Enter amount):\nOr press \"ENTER\" to skip");
-            String s = sc.nextLine();
-            bet = run.checkNumber(s);
-
-            money = game.bet(money, bet);
-
+            for (int i = 0; i < numberOfPlayers; i++) {
+                System.out.println("\n" + players[i].getName() +
+                        ", Wanna bet?(Enter amount):\nOr press \"ENTER\" to skip");
+                String s = sc.nextLine();
+                bet[i] = run.checkNumber(s);
+                money[i] = 100;
+                money[i] = game.bet(money[i], bet[i]);
+            }
 
 
             // Show cards;
             System.out.println("\n\nCards are dealt\n");
             for (int i = 0; i < numberOfPlayers; i++) {
                 players[i].printHand(players[i].getName(), true);
-                System.out.printf(" total for  %s is %s%n%n", players[i].getName(), players[i].getSum());
+//                System.out.printf("Total for %s is %s%n%n", players[i].getName(), players[i].getSum());
+                System.out.printf("Total points: %s%n%n", players[i].getSum());
             }
             dealer.printHand(dealer.getName(), false);
             System.out.println();
 
 
-            // Now each player play respectively with the dealer;
+            /// check if anyone win BLACKJACK.
+            boolean blackJack = false;
             for (int i = 0; i < numberOfPlayers; i++) {
-
-                /// check if anyone win BLACKJACK.
                 if (game.blackJack(players[i])) {
-                    System.out.println("You win " + 3 * bet);
-                    money += 3 * bet;
-                    System.out.println("Your actual stack is: " + money);
+                    System.out.println(players[i].getName() + " win " + 3 * bet[i]);
+                    money[i] += 3 * bet[i];
+                    System.out.println(players[i].getName() + "'s actual stack is: " + money[i] + "\n");
+                    blackJack = true;
+                }
+                if ((i == numberOfPlayers - 1) && blackJack) {
                     System.exit(0);
                 }
+            }
 
-                // Player's turn to play;
-                while (!oneDone && (i < numberOfPlayers - 1)) {
-                    oneDone = !game.pTurn(players[i]);
+            // Now each player play respectively with the dealer;
+            // Player's turn to play;
+            for (int i = 0; i < numberOfPlayers; i++) {
+                while (!oneDone) {
+                    oneDone = game.pTurn(players[i]);
+//                    System.out.println(oneDone);
                 }
+                if (i < numberOfPlayers - 1) {
+                    oneDone = false;
+//                    System.out.println("debug 3");
+                }
+
             }
 
 
                 // Dealer's turn to process;
             dealer.printHand(dealer.getName(), true);
+            System.out.println("Total for dealer: " + dealer.getSum());
+
             while (!dealerDone) {
-                dealerDone = game.dTurn();
+                dealerDone = game.dTurn(dealer);
             }
 
 
                 // At last, print final hands;
-                dealer.printHand(dealer.getName(), true);
-                int dealerSum = dealer.getSum();
+//            dealer.printHand(dealer.getName(), true);
+            System.out.println("\nRESULT:");
+            int dealerSum = dealer.getSum();
             for (int i = 0; i < numberOfPlayers; i++) {
 
-                players[i].printHand(players[i].getName(), true);
                 int oneSum = players[i].getSum();
+                players[i].printHand(players[i].getName(), true);
+                System.out.printf("Total for %s is %s%n%n", players[i].getName(), oneSum);
 
                 if ((oneSum > dealerSum || dealerSum > 21) && oneSum <= 21) {
-                    System.out.printf("Total for %s is %s%n", players[i].getName(), players[i].getSum());
-                    System.out.printf("%s wins ", players[i].getName());
+                    System.out.printf("Total for %s is %s%n", players[i].getName(), oneSum);
+                    System.out.printf("%s wins against the dealer!", players[i].getName());
 
-                    money += 2*bet;
-                    System.out.println("Your actual stack is: " + money);
+                    money[i] += 2 * bet[i];
+                    System.out.println(players[i].getName() + " actual stack is: " + money[i] + "\n");
                 }
 
                 else if ((oneSum <= dealerSum || oneSum > 21) && dealerSum <= 21) {
                     System.out.println("Total for dealer: " + dealer.getSum());
-                    System.out.println("Dealer wins ");
-                    money -= bet;
-                    System.out.println("Your actual stack is: " +money);
+                    System.out.println("Dealer wins against " + players[i].getName());
+                    money[i] -= bet[i];
+                    System.out.println(players[i].getName() + "'s actual stack is: " +money[i] + "\n");
                 }
                 else {   //(dealerSum > 21 && oneSum > 21)
                     System.out.printf("It should be impossible to enter here.(Both are busted)");
                 }
 
-//                if (i < numberOfPlayers - 1) {
-//                    // Hand out cards for the dealer for the next round;
-//                    dealer.addCard(theDeck.dealNextCard());
-//                    dealer.addCard(theDeck.dealNextCard());
-//                }
-
             }
 
 
-            ans2 = sc.next();
             boolean replay = true;
-
             while (replay) {
-                System.out.println("\n\nPlay again? y/n");
+                System.out.println("\nPlay again? y/n\n");
+                ans2 = sc.next();
                 if (ans2.compareToIgnoreCase("Y") == 0) {
                     playAgain = true;
                     replay = false;
                     for (int i = 0; i < numberOfPlayers; i++) {
                         players[i].empty();
+                        money[i] = 100;
                     }
                     dealer.empty();
-                    money = 100;
 
-
-                } else if (ans2.compareToIgnoreCase("N") == 0) {
+                }
+                else if (ans2.compareToIgnoreCase("N") == 0) {
                     playAgain = false;
                     replay = false;
                     sc.close();
                     System.out.println("Thank you for playing. Bye Bye!!!");
                     System.exit(0);
 
-                } else {
+                }
+                else {
                     System.err.println("input wrong, try again ");
                     replay = true;
                     ans2 = sc.next();

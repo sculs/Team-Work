@@ -73,12 +73,12 @@ public class Hand {
 
     public void printHand(String name, boolean showFirstCard){
 
-        System.out.printf("%s's cards:\n", name);
+        System.out.printf("%s's cards:%n", name);
 
         for (int i = 0; i < this.numCards; i++) {
 
             if (i == 0 && !showFirstCard) {
-                System.out.println("  [hidden]");
+                System.out.println("    [hidden]");
 
             } else {
                 System.out.println(cards[i].toString());

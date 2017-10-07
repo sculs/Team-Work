@@ -113,7 +113,7 @@ public class Card {
 
         }
 
-        return numStr + " of " + mySuit.toString();
+        return "    " + numStr + " of " + mySuit.toString();
     }
 
 }

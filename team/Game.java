@@ -19,6 +19,7 @@ public class Game {
 //        Scanner sc = new Scanner(System.in);
 
         boolean inputWrong = false;
+        oneDone = false;
         while (!inputWrong && !oneDone) {
             System.out.println(player.getName() + ", Hit or Stay? (Enter H or S): ");
             String ans = GameRunner.sc.next();
@@ -39,36 +40,41 @@ public class Game {
                     System.out.println("Congratulations!!! 21");
                     oneDone = true;
                 }
+                System.out.println();
 
-            } else if (ans.compareToIgnoreCase("S") == 0) {
+            }
+            else if (ans.compareToIgnoreCase("S") == 0) {
                 oneDone = true;
-            } else {
+            }
+            else {
                 System.err.println("input wrong, try again ...push a button ");
-                inputWrong = true;
+                inputWrong = false;
                 ans = GameRunner.sc.nextLine();
             }
-            System.out.println();
         }
         return oneDone;
     }
 
 
 //    public boolean dTurn(Player player){
-    public boolean dTurn(){
+    public boolean dTurn(Player dealer){
 
 //        if ((dealer.getSum() < player.getSum() && player.getSum() < 22) || dealer.getSum() < 17) {
         if (dealer.getSum() < 17) {
 
-            System.out.println("\nThe dealer hits\n");
-            dealerDone = !dealer.addCard(theDeck.dealNextCard());
+            System.out.println("The dealer hits...");
+//            dealerDone = !dealer.addCard(theDeck.dealNextCard());
+            dealer.addCard(theDeck.dealNextCard());
+            dealerDone = false;
 
 //            dealer.printHand(dealer.getName(), true);
 //            System.out.println("Total for dealer: " + dealer.getSum());
 
         } else {
-            System.out.println("\nThe dealer stays\n");
+            System.out.println("The dealer stays!\n");
             dealerDone = true;
-//            System.out.println("Total for dealer: " + dealer.getSum());
+            dealer.printHand(dealer.getName(), true);
+            System.out.println("Total for dealer: " + dealer.getSum() + "\n");
         }
         return dealerDone;
     }
@@ -87,22 +93,16 @@ public class Game {
         return leftMoney;
     }
 
+
     public boolean blackJack(Player player){
         boolean blackJack = false;
         if (player.getSum() == 21) {
             System.out.println("***************");
             System.out.println("***BLACKJACK***");
             System.out.println("***************");
-            this.oneDone = true;
-            this.dealerDone = true;
 
             blackJack = true;
-            //int bj=22;
-            //bj=dealer.getSum();
-            //System.out.println("You win " +3*bet);
-            //money = left + 3*bet;
         }
-
         return blackJack;
     }
 
