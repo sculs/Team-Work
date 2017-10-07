@@ -4,16 +4,20 @@ import java.util.Scanner;
 
 public class GameRunner {
 
+    public static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+//        Scanner sc = new Scanner(System.in);
 
         Game game = new Game();
         GameRunner run = new GameRunner();
         Player player = new Player();
+//        String s = sc.next();
+//        System.out.println(s);  // Debug2;
         Player[] players = player.multiPlayers();   /// multi players;
         Player dealer = new Player("Dealer");
+
         Deck theDeck = new Deck(7, true);
 
 
@@ -37,50 +41,56 @@ public class GameRunner {
             dealer.addCard(theDeck.dealNextCard());
 
             // Option for bet;
-            System.out.println("Wanna bet?(Enter amount):\nOr press \"ENTER\" to skip");
-            String ans3 = sc.nextLine();
-            bet = run.checkNumber(ans3);
-            if (bet != 0){
-                money = game.bet(money, bet);
-            }
+            System.out.println("\nWanna bet?(Enter amount):\nOr press \"ENTER\" to skip");
+            String s = sc.nextLine();
+            bet = run.checkNumber(s);
+
+            money = game.bet(money, bet);
+
 
 
             // Show cards;
-            System.out.println("Cards are dealt\n");
+            System.out.println("\n\nCards are dealt\n");
             for (int i = 0; i < numberOfPlayers; i++) {
                 players[i].printHand(players[i].getName(), true);
-                System.out.printf(" total for  %s is %s\n", players[i].getName(), players[i].getSum());
+                System.out.printf(" total for  %s is %s%n%n", players[i].getName(), players[i].getSum());
             }
             dealer.printHand(dealer.getName(), false);
-            System.out.println("\n");
+            System.out.println();
 
 
             // Now each player play respectively with the dealer;
             for (int i = 0; i < numberOfPlayers; i++) {
 
                 /// check if anyone win BLACKJACK.
-                if (game.blackJack(players[i])){
+                if (game.blackJack(players[i])) {
                     System.out.println("You win " + 3 * bet);
                     money += 3 * bet;
-                    System.out.println("Your actual stack is: " +money);
+                    System.out.println("Your actual stack is: " + money);
                     System.exit(0);
                 }
 
                 // Player's turn to play;
                 while (!oneDone) {
-                     oneDone = game.pTurn(players[i]);
+                    oneDone = game.pTurn(players[i]);
                 }
+
+            }
+
 
 
                 // Dealer's turn to process;
                 dealer.printHand(dealer.getName(), true);
                 while (!dealerDone) {
-                    dealerDone = game.dTurn(players[i]);
+                    dealerDone = game.dTurn();
                 }
+
 
                 // At last, print final hands;
                 dealer.printHand(dealer.getName(), true);
                 int dealerSum = dealer.getSum();
+            for (int i = 0; i < numberOfPlayers; i++) {
+
                 players[i].printHand(players[i].getName(), true);
                 int oneSum = players[i].getSum();
 
@@ -102,11 +112,11 @@ public class GameRunner {
                     System.out.printf("It should be impossible to enter here.(Both are busted)");
                 }
 
-                if (i < numberOfPlayers - 1) {
-                    // Hand out cards for the dealer for the next round;
-                    dealer.addCard(theDeck.dealNextCard());
-                    dealer.addCard(theDeck.dealNextCard());
-                }
+//                if (i < numberOfPlayers - 1) {
+//                    // Hand out cards for the dealer for the next round;
+//                    dealer.addCard(theDeck.dealNextCard());
+//                    dealer.addCard(theDeck.dealNextCard());
+//                }
 
             }
 
@@ -153,15 +163,14 @@ public class GameRunner {
 
     public int checkNumber(String s){
 
-        int a;
 
-        boolean inPutNumber = true;
-        if (s.equals(""))
+        if (s.equals("")) {
             return 0;
+        }
 
         while ( !s.equals("")) {
             try {
-                a = Integer.parseInt(s);
+                int a = Integer.parseInt(s);
                 if (a > 0){
                     return a;
                 }

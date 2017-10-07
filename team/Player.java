@@ -22,16 +22,16 @@ public class Player extends Hand{
     public Player() {
     }
 
+//    Scanner sc = new Scanner(System.in);
+
 
     public Player[] multiPlayers() {
-
-        Scanner sc = new Scanner(System.in);
 
         System.out.println("1 player(Press \"ENTER\")\nMulti players(Enter the number):");
 
         int numberOfPlayers = 1;    // default number:1
 
-        String s1 = sc.nextLine();
+        String s1 = GameRunner.sc.nextLine();
         boolean inPutNumber = s1.equals("");
 
         while (!inPutNumber) {
@@ -43,11 +43,11 @@ public class Player extends Hand{
                 }
                 else {
                     System.out.println("Number should be above 0:");
-                    s1 = sc.nextLine();
+                    s1 = GameRunner.sc.nextLine();
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter an integer:");
-                s1 = sc.nextLine();
+                s1 = GameRunner.sc.nextLine();
             }
         }
 
@@ -55,7 +55,7 @@ public class Player extends Hand{
 
         System.out.println("Type in your own name(s), or just click \"ENTER\"):");
 
-        String s2 = sc.nextLine();
+        String s2 = GameRunner.sc.nextLine();
 
         Player[] players = new Player[numberOfPlayers];
 
@@ -80,10 +80,10 @@ public class Player extends Hand{
 
 
             if (i < numberOfPlayers - 1) {
-                s2 = sc.nextLine();
+                s2 = GameRunner.sc.nextLine();
             }
         }
-        sc.close();
+//        sc.close();
         return players;
 
     }

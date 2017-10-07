@@ -16,10 +16,10 @@ public class Game {
 
     public boolean pTurn(Player player) {
 
-        Scanner sc = new Scanner(System.in);
+//        Scanner sc = new Scanner(System.in);
 
         System.out.println("Hit or Stay? (Enter H or S): ");
-        String ans = sc.next();
+        String ans = GameRunner.sc.next();
 
         boolean inputWrong = false;
         while (!inputWrong) {
@@ -44,7 +44,7 @@ public class Game {
             } else {
                 System.err.println("input wrong, try again ...push a button ");
                 inputWrong = true;
-                ans = sc.nextLine();
+                ans = GameRunner.sc.nextLine();
             }
             System.out.println();
         }
@@ -52,10 +52,11 @@ public class Game {
     }
 
 
-    public boolean dTurn(Player player){
+//    public boolean dTurn(Player player){
+    public boolean dTurn(){
 
-
-        if ((dealer.getSum() < player.getSum() && player.getSum() < 22) || dealer.getSum() < 17) {
+//        if ((dealer.getSum() < player.getSum() && player.getSum() < 22) || dealer.getSum() < 17) {
+        if (dealer.getSum() < 17) {
 
             System.out.println("\nThe dealer hits\n");
             dealerDone = !dealer.addCard(theDeck.dealNextCard());
@@ -73,16 +74,15 @@ public class Game {
 
     public int bet(int leftMoney, int bet) {
 
+        if (bet != 0) {
         System.out.println("Your actual stack is: " + leftMoney);
+            leftMoney -= bet;
+            System.out.print("Bet: " + bet + ", and left: " + leftMoney);
 
-//        System.out.println("How much do you want to bet?");
-//        int bet = sc.nextInt();
-
-        System.out.print("Your bet is: " + bet + ".");
-
-        leftMoney -= bet;
-        System.out.println("Money left: " + leftMoney);
-
+        }
+        else if (bet == 0){
+            System.out.println("No bet, your have " + leftMoney + " left.");
+        }
         return leftMoney;
     }
 
