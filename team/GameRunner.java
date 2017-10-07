@@ -71,19 +71,17 @@ public class GameRunner {
                 }
 
                 // Player's turn to play;
-                while (!oneDone) {
-                    oneDone = game.pTurn(players[i]);
+                while (!oneDone && (i < numberOfPlayers - 1)) {
+                    oneDone = !game.pTurn(players[i]);
                 }
-
             }
 
 
-
                 // Dealer's turn to process;
-                dealer.printHand(dealer.getName(), true);
-                while (!dealerDone) {
-                    dealerDone = game.dTurn();
-                }
+            dealer.printHand(dealer.getName(), true);
+            while (!dealerDone) {
+                dealerDone = game.dTurn();
+            }
 
 
                 // At last, print final hands;

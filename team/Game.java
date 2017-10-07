@@ -18,11 +18,10 @@ public class Game {
 
 //        Scanner sc = new Scanner(System.in);
 
-        System.out.println("Hit or Stay? (Enter H or S): ");
-        String ans = GameRunner.sc.next();
-
         boolean inputWrong = false;
-        while (!inputWrong) {
+        while (!inputWrong && !oneDone) {
+            System.out.println(player.getName() + ", Hit or Stay? (Enter H or S): ");
+            String ans = GameRunner.sc.next();
             //if the player hits
             if (ans.compareToIgnoreCase("H") == 0) {
 
@@ -30,11 +29,13 @@ public class Game {
                 oneDone = !player.addCard(theDeck.dealNextCard());
 
                 player.printHand(player.getName(), true);
-                System.out.printf(" Total for %s is %s%n", player.getName(), player.getSum());
+                System.out.printf("Total for %s is %s%n", player.getName(), player.getSum());
 
                 if (player.getSum() > 21) {
                     System.out.println("<<<<<<BUSTED>>>>>>");
-                } else if (player.getSum() == 21) {
+                    oneDone = true;
+                }
+                else if (player.getSum() == 21) {
                     System.out.println("Congratulations!!! 21");
                     oneDone = true;
                 }
