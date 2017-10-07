@@ -100,7 +100,7 @@ public class Game {
 
         }
         else {      // bet == 0
-            System.out.println("No bet, your have " + leftMoney + "$ left.\n");
+            System.out.println("No bet, you have " + leftMoney + "$ left.\n");
         }
         return bet;
     }
@@ -118,5 +118,30 @@ public class Game {
         return blackJack;
     }
 
+
+    public boolean checkNumber(String s){
+
+        if (s.equals("")) {
+            return true;
+        }
+
+        try {
+            int a = Integer.parseInt(s);
+            if (a > 0){
+                return true;
+            }
+            else {
+                System.out.println("Number should be above 0:");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter an integer:");
+            return false;
+        }
+    }
+
+    public boolean checkInput(String s){
+        return !s.equals("");
+    }
 }
 

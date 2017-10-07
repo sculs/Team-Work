@@ -83,19 +83,11 @@ public class Player extends Hand{
                 s2 = GameRunner.sc.nextLine();
             }
         }
-//        sc.close();
         return players;
 
     }
 
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
 
     public String getName() {
         return name;
