@@ -27,7 +27,7 @@ public class Player extends Hand{
 
     public Player[] multiPlayers() {
 
-        System.out.println("1 player(Press \"ENTER\")\nMulti players(Enter the number):");
+        System.out.println("One player? press \"ENTER\":\nMulti players, enter the number:");
 
         int numberOfPlayers = 1;    // default number:1
 
@@ -53,7 +53,7 @@ public class Player extends Hand{
 
 
 
-        System.out.println("Type in your own name(s), or just click \"ENTER\"):");
+        System.out.println("Default name(s)? press \"ENTER\":\nOr type in all your name(s):");
 
         String s2 = GameRunner.sc.nextLine();
 

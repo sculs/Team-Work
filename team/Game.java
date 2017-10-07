@@ -18,9 +18,9 @@ public class Game {
 
 //        Scanner sc = new Scanner(System.in);
 
-        boolean inputWrong = false;
+//        boolean inputWrong = false;
         oneDone = false;
-        while (!inputWrong && !oneDone) {
+        while (!oneDone) {
             System.out.println(player.getName() + ", Hit or Stay? (Enter H or S): ");
             String ans = GameRunner.sc.next();
             //if the player hits
@@ -48,8 +48,8 @@ public class Game {
             }
             else {
                 System.err.println("input wrong, try again ...push a button ");
-                inputWrong = false;
-                ans = GameRunner.sc.nextLine();
+//                inputWrong = false;
+//                ans = GameRunner.sc.nextLine();
             }
         }
         return oneDone;
@@ -74,23 +74,35 @@ public class Game {
             System.out.println("The dealer stays!\n");
             dealerDone = true;
             dealer.printHand(dealer.getName(), true);
-            System.out.println("Total for dealer: " + dealer.getSum() + "\n");
+            System.out.println("Total for dealer: " + dealer.getSum());
+            if (dealer.getSum() > 21){
+                System.out.println("<<<<<<BUSTED>>>>>>");
+            }
         }
         return dealerDone;
     }
 
+
     public int bet(int leftMoney, int bet) {
 
         if (bet != 0) {
-            System.out.println("Your actual stack is: " + leftMoney + "$");
-            leftMoney -= bet;
-            System.out.print("Bet: " + bet + "$, and left: " + leftMoney + "$");
+//            System.out.println("Your actual stack is: " + leftMoney + "$");
+            if (leftMoney == 0){
+                System.out.println("You have on money, can not bet!");
+                bet = 0;
+            }
+            else if (bet > leftMoney){
+                System.out.println("Only " + leftMoney + "$ left, you bet " + leftMoney + "$\n");
+                bet = leftMoney;
+            }
+            else
+            System.out.print("Bet: " + bet + "$, and left: " + (leftMoney - bet) + "$\n");
 
         }
-        else if (bet == 0){
-            System.out.println("No bet, your have " + leftMoney + "$ left.");
+        else {      // bet == 0
+            System.out.println("No bet, your have " + leftMoney + "$ left.\n");
         }
-        return leftMoney;
+        return bet;
     }
 
 
