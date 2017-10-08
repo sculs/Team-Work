@@ -49,7 +49,8 @@ public class GameRunner {
                     answer1 = sc.nextLine();
                 }
                 bet[i] = answer1.equals("") ? 0 : Integer.parseInt(answer1);
-                money[i] -= game.bet(money[i], bet[i]);
+                bet[i] = game.bet(money[i], bet[i]);
+                money[i] -= bet[i];
             }
 
 //-------------------------------------------------------------------------------
