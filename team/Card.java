@@ -20,7 +20,7 @@ public class Card {
 	}
 
 	public String toString() {
-		String str = rank.getRankString() + " " + suit.getSuit() + "\n";		
+		String str = "\t" +rank.getRankString() + " " + suit.getSuit();		
 		return str;
 
 	}
