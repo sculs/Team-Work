@@ -48,7 +48,7 @@ public class Hand {
             //get the number for the current card
             cardNum = cards[i].getRank().getRankValue();
 
-            if (cardNum == 1) {    //Ace
+            if (cardNum == 11) {    //Ace
                 numAces ++;
                 sum += 11;
             }
