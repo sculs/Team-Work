@@ -1,3 +1,4 @@
+package team;
 
 public class Game {
 
@@ -6,7 +7,7 @@ public class Game {
     private boolean oneDone = false;
     private boolean dealerDone = false;
 
-//// Method for player HIT/STAY /////////////////////////////////////////
+    //// Method for player HIT/STAY /////////////////////////////////////////
     protected boolean playerTurn(Player player) {
 
         oneDone = false;
@@ -41,7 +42,7 @@ public class Game {
     }
 
 
-//// Method for the dealer HIT/STAY /////////////////////////////////////////
+    //// Method for the dealer HIT/STAY /////////////////////////////////////////
     protected boolean dealerTurn(Player dealer){
 
         // if ((dealer.getSum() < player.getSum() && player.getSum() < 22) || dealer.getSum() < 17) {
@@ -62,7 +63,7 @@ public class Game {
         return dealerDone;
     }
 
-//// Method for player's bet /////////////////////////////////////////
+    //// Method for player's bet /////////////////////////////////////////
     protected int bet(int leftMoney, int bet) {
 
         if (leftMoney <= 0) {
@@ -77,7 +78,7 @@ public class Game {
             }
             else
                 System.out.print("Bet: " + bet + "$, and left: "
-                    + (leftMoney - bet) + "$\n");
+                        + (leftMoney - bet) + "$\n");
         }
         else {      // bet == 0
             System.out.println("No bet, you have " + leftMoney + "$ left.\n");
@@ -85,7 +86,7 @@ public class Game {
         return bet;
     }
 
-//// Method to check Blackjack /////////////////////////////////////////
+    //// Method to check Blackjack /////////////////////////////////////////
     protected boolean blackJack(Player player){
         boolean blackJack = false;
         if (player.getSum() == 21) {
@@ -97,7 +98,38 @@ public class Game {
         return blackJack;
     }
 
-//// Method to check if user's input is number or blank ///////////////////////
+    protected boolean nextRound() {
+        System.out.println("---------------------------------------\n");
+        System.out.println("Next round? y/n");
+        boolean inputAgain = true;
+        boolean replay = false;
+        String answer;
+        int waitTime = 0;
+
+        while (inputAgain) {
+            answer = GameRunner.sc.next();
+            if (answer.compareToIgnoreCase("Y") == 0) {
+                inputAgain = false;
+                replay = true;
+            }
+            else if (answer.compareToIgnoreCase("N") == 0) {
+                System.out.println("Thank you for playing. Bye Bye!!!");
+                inputAgain = false;
+                replay = false;
+            }
+            else {
+                waitTime++;
+                if (waitTime > 3)
+                    replay = false;
+                System.err.println("input wrong, try again: ");
+                inputAgain = true;
+            }
+            GameRunner.sc.nextLine();  // aims to clear the scanner content;
+        }
+        return replay;
+    }
+
+    //// Method to check if user's input is number or blank ///////////////////////
     protected boolean checkNumber(String s){
 
         if (s.equals("")) {
