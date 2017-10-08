@@ -153,6 +153,7 @@ public class GameRunner {
             System.out.println("Next round? y/n");
             boolean inputAgain = true;
             String answer2;
+            int waitTime = 0;
 
             while (inputAgain) {
                 answer2 = sc.next();
@@ -170,6 +171,10 @@ public class GameRunner {
                     System.exit(0);
                 }
                 else {
+                    waitTime ++;
+                    if (waitTime > 3) {
+                        System.exit(0);
+                    }
                     System.err.println("input wrong, try again: ");
                     inputAgain = true;
                 }

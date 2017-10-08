@@ -1,41 +1,18 @@
 package team;
 
 import java.util.Random;
-/**
- * This class implements a deck of cards.
- *
- * @author marcog
- *
- */
-public class Deck {
-    /**
-     * The array of cards in the deck where the top card is in the first index
-     */
-    private Card[] myCards;
-    // private ArrayList<Card> myCards;
-    // private LinkedList<Card> myCards;
 
-    /**
-     * The number of cards currently in the deck
-     */
+public class Deck {
+
+    private Card[] myCards;
+
     private int numCards;
 
-    /**
-     * Constructor that creates one deck not shuffled - Overloaded constructor
-     */
     public Deck() {
-
         this(1, false);
     }
 
-    /**
-     * Constructor that defines how many decks and if it should be shuffled
-     *
-     * @param numDeck     the number of individual decks in this deck
-     * @param shuffle     whether to shuffle the cards
-     */
     public Deck(int numDecks, boolean shuffle) {
-
 
         this.numCards = numDecks * 52;
         this.myCards = new Card[this.numCards];
@@ -44,16 +21,16 @@ public class Deck {
         int c = 0;
 
         //for each deck
-        for(int d = 0; d < numDecks; d++) {
+        for(int i = 0; i < numDecks; i++) {
 
             //for each suit
-            for(int s = 0; s < 4; s++) {
+            for(int j = 0; j < 4; j++) {
 
                 //for each number
                 for(int n = 1; n <= 13; n++) {
 
                     //add a new card to the deck
-                    this.myCards[c] = new Card(Suit.values()[s], n);
+                    this.myCards[c] = new Card(Suit.values()[j], n);
                     c++;
                 }
 
@@ -66,13 +43,11 @@ public class Deck {
         }
     }
 
-    /**
-     * Shuffle deck by randomly swapping pairs of cards
-     */
+
     public void shuffle() {
 
         //initialize random number generator
-        Random rng = new Random();
+        Random random = new Random();
 
         //temporary card
         Card temp;
@@ -81,7 +56,7 @@ public class Deck {
         for(int i = 0; i < this.numCards; i++) {
 
             // get a random card j to swap i´s value with
-            j = rng.nextInt(this.numCards);
+            j = random.nextInt(this.numCards);
 
             //do swap
             temp = this.myCards[i];
@@ -92,11 +67,7 @@ public class Deck {
 
     }
 
-    /**
-     * Deal the next card from the top of the deck
-     *
-     * @return    the dealt card
-     */
+
     public Card dealNextCard() {
 
         //get the top card
@@ -116,18 +87,14 @@ public class Deck {
 
     }
 
-    /**
-     * Print the top cards in the deck
-     *
-     * @param numToPrint    the number of cards from the top of the deck to print
-     */
-    public void printDeck(int numToPrint) {
 
-        for (int c = 0; c < numToPrint; c++) {
-            System.out.printf("% 3d/%d %s\n", c+1, this.numCards, this.myCards[c].toString());
-        }
-        System.out.printf("\t\t[%d left]\n", this.numCards-numToPrint);
-    }
+//    public void printDeck(int numToPrint) {
+//
+//        for (int i = 0; i < numToPrint; i++) {
+//            System.out.printf("% 3d/%d %s\n", i+1, this.numCards, this.myCards[i].toString());
+//        }
+//        System.out.printf("\t\t[%d left]\n", this.numCards-numToPrint);
+//    }
 
 
 }
