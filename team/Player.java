@@ -1,19 +1,8 @@
 package team;
 
-import java.util.Scanner;
-
-/**
- * This class implements a black jack player
- *
- * @author marcog
- *
- */
-public class Player extends Hand{
+class Player extends Hand{
 
     private String name;
-    private int number;
-
-    private Hand hand = new Hand();
 
     public Player(String name) {
         this.name = name;
@@ -22,10 +11,8 @@ public class Player extends Hand{
     public Player() {
     }
 
-//    Scanner sc = new Scanner(System.in);
 
-
-    public Player[] multiPlayers() {
+    protected Player[] multiPlayers() {
 
         System.out.println("One player? press \"ENTER\":\nMulti players, enter the number:");
 
@@ -60,23 +47,21 @@ public class Player extends Hand{
         Player[] players = new Player[numberOfPlayers];
 
         for (int i = 0; i < numberOfPlayers; i++) {
-            // Set value for each player to prevent errors;
             players[i] = new Player();
 
-            // default name for each player, in case some will not type in a name;
+            // default name for each player in case of no input;
             if (s2.equals("")) {
                 players[i].setName("player" + (i + 1));
                 System.out.println("player" + (i + 1) + " is player "+(i + 1) + ";");
             }
             else {
                 // Control the length of each Name, to void console har too much content.
-                if (s2.length() > 10){
-                    s2 = s2.substring(0, 10);
+                if (s2.length() > 12){
+                    s2 = s2.substring(0, 12);
                 }
                 players[i].setName(s2);
                 System.out.println(s2 + " is player " + (i + 1) + ";");
             }
-
 
 
             if (i < numberOfPlayers - 1) {
@@ -88,12 +73,11 @@ public class Player extends Hand{
     }
 
 
-
-    public String getName() {
+    protected String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 }

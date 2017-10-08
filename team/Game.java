@@ -4,31 +4,22 @@ import java.util.Scanner;
 
 public class Game {
 
-//    private Player player = new Player();
-//    private int numberOfPlayers = player.getNumber();
-//    private Player[] players = new Player[numberOfPlayers];
     private Player dealer = new Player("Dealer");
     private Deck theDeck = new Deck(7, true);
-
-
     private boolean oneDone = false;
     private boolean dealerDone = false;
 
-    public boolean pTurn(Player player) {
+//// Method for player HIT/STAY /////////////////////////////////////////
+    protected boolean playerTurn(Player player) {
 
-//        Scanner sc = new Scanner(System.in);
-
-//        boolean inputWrong = false;
         oneDone = false;
         while (!oneDone) {
             System.out.println(player.getName() + ", Hit or Stay? (Enter H or S): ");
             String ans = GameRunner.sc.next();
-            //if the player hits
+
             if (ans.compareToIgnoreCase("H") == 0) {
-
-                //add next card in the deck and store whether player is busted
+                // add next card in the deck and store whether player is busted
                 oneDone = !player.addCard(theDeck.dealNextCard());
-
                 player.printHand(player.getName(), true);
                 System.out.printf("Total for %s is %s%n", player.getName(), player.getSum());
 
@@ -41,36 +32,28 @@ public class Game {
                     oneDone = true;
                 }
                 System.out.println();
-
             }
             else if (ans.compareToIgnoreCase("S") == 0) {
                 oneDone = true;
             }
             else {
                 System.err.println("input wrong, try again ...push a button ");
-//                inputWrong = false;
-//                ans = GameRunner.sc.nextLine();
             }
         }
         return oneDone;
     }
 
 
-//    public boolean dTurn(Player player){
-    public boolean dTurn(Player dealer){
+//// Method for the dealer HIT/STAY /////////////////////////////////////////
+    protected boolean dealerTurn(Player dealer){
 
-//        if ((dealer.getSum() < player.getSum() && player.getSum() < 22) || dealer.getSum() < 17) {
+        // if ((dealer.getSum() < player.getSum() && player.getSum() < 22) || dealer.getSum() < 17) {
         if (dealer.getSum() < 17) {
-
             System.out.println("The dealer hits...");
-//            dealerDone = !dealer.addCard(theDeck.dealNextCard());
             dealer.addCard(theDeck.dealNextCard());
             dealerDone = false;
-
-//            dealer.printHand(dealer.getName(), true);
-//            System.out.println("Total for dealer: " + dealer.getSum());
-
-        } else {
+        }
+        else {
             System.out.println("The dealer stays!\n");
             dealerDone = true;
             dealer.printHand(dealer.getName(), true);
@@ -82,22 +65,22 @@ public class Game {
         return dealerDone;
     }
 
+//// Method for player's bet /////////////////////////////////////////
+    protected int bet(int leftMoney, int bet) {
 
-    public int bet(int leftMoney, int bet) {
-
-        if (bet != 0) {
-//            System.out.println("Your actual stack is: " + leftMoney + "$");
-            if (leftMoney == 0){
-                System.out.println("You have on money, can not bet!");
-                bet = 0;
-            }
-            else if (bet > leftMoney){
-                System.out.println("Only " + leftMoney + "$ left, you bet " + leftMoney + "$\n");
+        if (leftMoney <= 0) {
+            System.out.println("You have no money to bet!");
+            return 0;
+        }
+        else if (bet != 0) {
+            if (bet > leftMoney){
+                System.out.println("Only " + leftMoney + "$ available, bet "
+                        + leftMoney + "$");
                 bet = leftMoney;
             }
             else
-            System.out.print("Bet: " + bet + "$, and left: " + (leftMoney - bet) + "$\n");
-
+                System.out.print("Bet: " + bet + "$, and left: "
+                    + (leftMoney - bet) + "$\n");
         }
         else {      // bet == 0
             System.out.println("No bet, you have " + leftMoney + "$ left.\n");
@@ -105,21 +88,20 @@ public class Game {
         return bet;
     }
 
-
-    public boolean blackJack(Player player){
+//// Method to check Blackjack /////////////////////////////////////////
+    protected boolean blackJack(Player player){
         boolean blackJack = false;
         if (player.getSum() == 21) {
             System.out.println("***************");
             System.out.println("***BLACKJACK***");
             System.out.println("***************");
-
             blackJack = true;
         }
         return blackJack;
     }
 
-
-    public boolean checkNumber(String s){
+//// Method to check if user's input is number or blank ///////////////////////
+    protected boolean checkNumber(String s){
 
         if (s.equals("")) {
             return true;
@@ -140,7 +122,7 @@ public class Game {
         }
     }
 
-    public boolean checkInput(String s){
+    protected boolean checkInput(String s){
         return !s.equals("");
     }
 }
