@@ -1,4 +1,3 @@
-package team;
 
 public class Hand {
 
@@ -47,7 +46,7 @@ public class Hand {
         for (int i = 0; i < this.numCards; i++) {
 
             //get the number for the current card
-            cardNum = cards[i].getNumber();
+            cardNum = cards[i].getRank().getRankValue();
 
             if (cardNum == 1) {    //Ace
                 numAces ++;
@@ -104,4 +103,5 @@ public class Hand {
         }
         this.numCards = numCards;
     }
-}
+    
+}  

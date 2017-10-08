@@ -1,11 +1,8 @@
-package team;
-
-import java.util.Scanner;
 
 public class Game {
 
     private Player dealer = new Player("Dealer");
-    private Deck theDeck = new Deck(7, true);
+    private Deck theDeck = new Deck();
     private boolean oneDone = false;
     private boolean dealerDone = false;
 
@@ -19,7 +16,7 @@ public class Game {
 
             if (ans.compareToIgnoreCase("H") == 0) {
                 // add next card in the deck and store whether player is busted
-                oneDone = !player.addCard(theDeck.dealNextCard());
+                oneDone = !player.addCard(theDeck.dealNextCard(theDeck));
                 player.printHand(player.getName(), true);
                 System.out.printf("Total for %s is %s%n", player.getName(), player.getSum());
 
@@ -50,7 +47,7 @@ public class Game {
         // if ((dealer.getSum() < player.getSum() && player.getSum() < 22) || dealer.getSum() < 17) {
         if (dealer.getSum() < 17) {
             System.out.println("The dealer hits...");
-            dealer.addCard(theDeck.dealNextCard());
+            dealer.addCard(theDeck.dealNextCard(theDeck));
             dealerDone = false;
         }
         else {
@@ -126,4 +123,3 @@ public class Game {
         return !s.equals("");
     }
 }
-
