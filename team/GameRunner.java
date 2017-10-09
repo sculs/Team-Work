@@ -77,7 +77,7 @@ public class GameRunner {
 
 //-------------------------------------------------------------------------------
 
-            //// Function 1: check if anyone win BLACKJACK.
+            //// Function 1: check if any player win BLACKJACK.
             boolean blackJack = false;
             for (int i = 0; i < numberOfPlayers; i++) {
                 if (game.blackJack(players[i])) {
@@ -90,7 +90,6 @@ public class GameRunner {
                 }
                 if ((i == numberOfPlayers - 1) && blackJack) {
                     if (game.nextRound()) {
-                        oneDone = dealerDone = false;
                         for (Player p : players)
                             p.empty();
                         dealer.empty();
@@ -115,6 +114,22 @@ public class GameRunner {
                     oneDone = false;
             }
             dealer.printHand(dealer.getName(), true);
+            if (game.blackJack(dealer)) {
+                System.out.println(dealer.getName() + " got Blackjack! Dealer win!");
+
+                if (game.nextRound()) {
+                    oneDone = dealerDone = false;
+                    for (Player p : players)
+                        p.empty();
+                    dealer.empty();
+                    theDeck = new Deck();
+                }
+                else {
+                    System.exit(0);
+                }
+                continue;
+            }
+
             System.out.println("Total for dealer: " + dealer.getSum() + "\n");
             while (!dealerDone) {
                 Boolean allPlayerBusted = false;

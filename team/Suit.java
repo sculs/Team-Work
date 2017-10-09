@@ -1,7 +1,8 @@
+package team;
 
 public enum Suit {
 
-    Clubs("♣"), Diamonds("♦"), Spades("♠"), Hearts("♥");
+    Clubs("♣︎"), Diamonds("♦︎"), Spades("♠︎"), Hearts("♥︎");
 
     private String suit;
 
@@ -21,8 +22,8 @@ public enum Suit {
     public String toString(){
         return suit;
     }
-	
-	}
+
+}
 
 		
 

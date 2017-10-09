@@ -2,7 +2,7 @@ package team;
 
 public class Game {
 
-    private Player dealer = new Player("Dealer");
+//    private Player dealer = new Player("Dealer");
     private Deck theDeck = new Deck();
     private boolean oneDone = false;
     private boolean dealerDone = false;
@@ -120,7 +120,7 @@ public class Game {
             else {
                 waitTime++;
                 if (waitTime > 3)
-                    replay = false;
+                    System.exit(0);
                 System.err.println("input wrong, try again: ");
                 inputAgain = true;
             }

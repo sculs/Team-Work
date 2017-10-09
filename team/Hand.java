@@ -1,3 +1,4 @@
+package team;
 
 public class Hand {
 
@@ -103,5 +104,5 @@ public class Hand {
         }
         this.numCards = numCards;
     }
-    
+
 }  
