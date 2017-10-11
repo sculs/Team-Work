@@ -187,15 +187,17 @@ public class GameRunner {
                 int oneSum = players[i].getSum();
                 System.out.printf("Total for %s: %s%n", players[i].getName(), oneSum);
 
+                boolean blackjack = false;
                 // player wins when his points below 21 and higher and the dealer, or dealer busted;
                 if ((oneSum > dealerSum && oneSum <= 21) || dealerSum > 21) {
                     System.out.printf("%s wins against the dealer!%n", players[i].getName());
                     money[i] += 2 * bet[i];
                 }
-                else if (oneSum == 21 && players[i].getNumCards() == 2){
-                    System.out.printf("%s wins against the dealer!%n", players[i].getName());
-                    money[i] += 4 * bet[i];
 
+                else if (oneSum == 21 && players[i].getNumCards() == 2){
+                    System.out.printf("%s wins against the dealer with BLACKJACK!%n", players[i].getName());
+                    money[i] += 4 * bet[i];
+                    blackjack = true;
                 }
                 // (oneSum <= dealerSum || oneSum > 21) && dealerSum <= 21
                 else {
