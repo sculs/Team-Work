@@ -19,7 +19,6 @@ public class Game {
                 System.out.println("BLACKJACK");
                 System.out.println(player.getName());
                 oneDone = true;
-
                 return oneDone;
             }
 
@@ -59,7 +58,6 @@ public class Game {
     //// Method for the dealer HIT/STAY /////////////////////////////////////////
     protected boolean dealerTurn(Player dealer){
 
-        // if ((dealer.getSum() < player.getSum() && player.getSum() < 22) || dealer.getSum() < 17) {
         if (dealer.getSum() < 17) {
             System.out.println("The dealer hits...");
             dealer.addCard(theDeck.dealNextCard(theDeck));

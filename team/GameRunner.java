@@ -33,9 +33,7 @@ public class GameRunner {
             money[i] = 100;
         Deck theDeck = new Deck();
 
-////////////////////////////////////////////////////////////////////////////////
-
-        // The Game Starts!!!
+//////// The Game Starts!!! ///////////////////////////////////////////////////
         labelA:
         for (;;){   // Loop here is prepared for additional rounds;
 
@@ -93,23 +91,6 @@ public class GameRunner {
             }
             dealer.printHand(dealer.getName(), true);
 
-//            if (game.blackJack(dealer)) {
-//            if (true) {
-//                System.out.println(dealer.getName() + " got Blackjack! Dealer win!");
-//                game.pause(2);
-
-//                if (game.nextRound()) {
-//                    oneDone = dealerDone = false;
-//                    for (Player p : players)
-//                        p.empty();
-//                    dealer.empty();
-//                    theDeck = new Deck();
-//                }
-//                else {
-//                    System.exit(0);
-//                }
-//                continue;
-//            }
 
             System.out.println("Total for dealer: " + dealer.getSum() + "\n");
             while (!dealerDone) {
