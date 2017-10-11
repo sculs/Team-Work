@@ -8,12 +8,22 @@ public class Game {
     private Deck theDeck = new Deck();
     private boolean oneDone = false;
     private boolean dealerDone = false;
+    boolean blackjack = false;
 
     //// Method for player HIT/STAY /////////////////////////////////////////
     protected boolean playerTurn(Player player) {
 
         oneDone = false;
         while (!oneDone) {
+            if (player.getSum() == 21) {
+                System.out.println("BLACKJACK");
+                System.out.println(player.getName());
+                oneDone = true;
+
+                return oneDone;
+            }
+
+
             System.out.println(player.getName() + ", Hit or Stay? (Enter H or S): ");
             String ans = GameRunner.sc.next();
 

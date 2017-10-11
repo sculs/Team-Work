@@ -1,10 +1,10 @@
 package team;
 
-
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class GameRunner {
+
 
     public static final Scanner sc = new Scanner(System.in);
 
@@ -80,37 +80,54 @@ public class GameRunner {
 
 //-------------------------------------------------------------------------------
             //// Function 1: check if any player win BLACKJACK.
-            boolean blackJack = false;
-            for (int i = 0; i < numberOfPlayers; i++) {
-                if (game.blackJack(players[i])) {
-                    System.out.println(players[i].getName() + " win " + 3 * bet[i]);
-                    // when a player wins, the bet part return, and win additional 3 * bets?
-                    money[i] += 4 * bet[i];
-                    for (int j = 0; j < numberOfPlayers; j++) {
-                        money [j] += j == i ? 0 : bet[j];
-                    }
-                    System.out.println(players[i].getName() +
-                            "'s actual stack is: " + money[i] + "$\n");
-                    game.pause(2);
-                    blackJack = true;
-                }
-                if ((i == numberOfPlayers - 1) && blackJack) {
-                    if (game.nextRound()) {
-                        for (Player p : players)
-                            p.empty();
-                        dealer.empty();
-                        theDeck = new Deck();
-                    }
-                    else {
-                        System.exit(0);
-                    }
-                    continue labelA;
-                }
-            }
+//            boolean blackJack = false;
+//            for (int i = 0; i < numberOfPlayers; i++) {
+//                if (game.blackJack(players[i])) {
+//                    System.out.println(players[i].getName() + " win " + 3 * bet[i]);
+//                    // when a player wins, the bet part return, and win additional 3 * bets?
+//                    money[i] += 4 * bet[i];
+//                    for (int j = 0; j < numberOfPlayers; j++) {
+//                        money [j] += j == i ? 0 : bet[j];
+//                    }
+//                    System.out.println(players[i].getName() +
+//                            "'s actual stack is: " + money[i] + "$\n");
+//                    game.pause(2);
+//                    blackJack = true;
+//                }
+//                if ((i == numberOfPlayers - 1) && blackJack) {
+//                    if (game.nextRound()) {
+//                        for (Player p : players)
+//                            p.empty();
+//                        dealer.empty();
+//                        theDeck = new Deck();
+//                    }
+//                    else {
+//                        System.exit(0);
+//                    }
+//                    continue labelA;
+//                }
+//            }
 
 //-------------------------------------------------------------------------------
             // Thirdly, each player HIT/STAY respectively, then dealer process afterwards;
 
+////            //--------------------
+////                boolean blackJack = false;
+//////                for (int i = 0; i < numberOfPlayers; i++) {
+////                    if (game.blackJack(players[i])) {
+////                        System.out.println(players[i].getName() + " win " + 3 * bet[i]);
+////                        // when a player wins, the bet part return, and win additional 3 * bets?
+////                        money[i] += 4 * bet[i];
+//////                        for (int j = 0; j < numberOfPlayers; j++) {
+//////                            money [j] += j == i ? 0 : bet[j];
+//////                        }
+////                        System.out.println(players[i].getName() +
+////                                "'s actual stack is: " + money[i] + "$\n");
+////                        game.pause(2);
+////                        blackJack = true;
+//////                        oneDone[i] = true;
+//                    }
+            //--------------
             for (int i = 0; i < numberOfPlayers; i++) {
                 players[i].printHand(players[i].getName(), true);
                 System.out.println("Total points are: " + players[i].getSum() + "\n");
@@ -171,9 +188,14 @@ public class GameRunner {
                 System.out.printf("Total for %s: %s%n", players[i].getName(), oneSum);
 
                 // player wins when his points below 21 and higher and the dealer, or dealer busted;
-                if ((oneSum > dealerSum && oneSum <= 21) || dealerSum > 21 ) {
+                if ((oneSum > dealerSum && oneSum <= 21) || dealerSum > 21) {
                     System.out.printf("%s wins against the dealer!%n", players[i].getName());
                     money[i] += 2 * bet[i];
+                }
+                else if (oneSum == 21 && players[i].getNumCards() == 2){
+                    System.out.printf("%s wins against the dealer!%n", players[i].getName());
+                    money[i] += 4 * bet[i];
+
                 }
                 // (oneSum <= dealerSum || oneSum > 21) && dealerSum <= 21
                 else {
