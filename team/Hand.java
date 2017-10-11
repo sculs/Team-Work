@@ -78,7 +78,7 @@ public class Hand {
         for (int i = 0; i < this.numCards; i++) {
 
             if (i == 0 && !showFirstCard) {
-                System.out.println("    [hidden]");
+                System.out.println(" [hidden]");
 
             } else {
                 System.out.println(cards[i].toString());

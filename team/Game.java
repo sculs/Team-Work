@@ -1,5 +1,7 @@
 package team;
 
+import java.util.concurrent.TimeUnit;
+
 public class Game {
 
 //    private Player dealer = new Player("Dealer");
@@ -23,10 +25,12 @@ public class Game {
 
                 if (player.getSum() > 21) {
                     System.out.println("<<<<<<BUSTED>>>>>>");
+                    pause(2);
                     oneDone = true;
                 }
                 else if (player.getSum() == 21) {
                     System.out.println("Congratulations!!! 21");
+                    pause(2);
                     oneDone = true;
                 }
                 System.out.println();
@@ -49,15 +53,18 @@ public class Game {
         if (dealer.getSum() < 17) {
             System.out.println("The dealer hits...");
             dealer.addCard(theDeck.dealNextCard(theDeck));
+            pause(0.5);
             dealerDone = false;
         }
         else {
             System.out.println("The dealer stays!\n");
+            pause(0.5);
             dealerDone = true;
             dealer.printHand(dealer.getName(), true);
             System.out.println("Total for dealer: " + dealer.getSum());
             if (dealer.getSum() > 21){
                 System.out.println("<<<<<<BUSTED>>>>>>");
+                pause(2);
             }
         }
         return dealerDone;
@@ -154,4 +161,28 @@ public class Game {
     protected boolean checkInput(String s){
         return !s.equals("");
     }
+
+    protected void countDown(int seconds) {
+        try {
+            for (int i = seconds; i > 0 ; i--) {
+                System.out.print(" " + i);
+                Thread.sleep(250);
+                for (int j = 0; j < 2; j++) {
+                    System.out.print(".");
+                    Thread.sleep(375);
+                }
+            }
+        }
+        catch (InterruptedException e) {
+        }
+    }
+
+    protected void pause(double seconds) {
+        try {
+            Thread.sleep((int)(seconds * 1000));
+        }
+        catch (InterruptedException e) {
+        }
+    }
+
 }

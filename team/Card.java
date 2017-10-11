@@ -21,6 +21,30 @@ public class Card {
     }
 
     public String toString() {
-        return "\t" + rank.getRankString() + " " + suit.getSuit();
+
+        String s;
+
+
+        if (rank.getRankString().equals("10"))
+        s =  "" +
+                "┏───────┓\n" +
+                "┃       ┃\n" +
+                "┃       ┃\n" +
+                "┃  " + rank.getRankString() + suit.getSuit() + "  ┃\n" +
+                "┃       ┃\n" +
+                "┃       ┃\n" +
+                "┗───────┛";
+        else
+            s= "" +
+                    "┏───────┓\n" +
+                    "┃       ┃\n" +
+                    "┃       ┃\n" +
+                    "┃  " + rank.getRankString() + " " + suit.getSuit() + "  ┃\n" +
+                    "┃       ┃\n" +
+                    "┃       ┃\n" +
+                    "┗───────┛";
+
+        return s;
+
     }
 }
