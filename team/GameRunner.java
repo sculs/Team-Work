@@ -110,7 +110,10 @@ public class GameRunner {
 
 //-------------------------------------------------------------------------------
             // Thirdly, each player HIT/STAY respectively, then dealer process afterwards;
+
             for (int i = 0; i < numberOfPlayers; i++) {
+                players[i].printHand(players[i].getName(), true);
+                System.out.println("Total points are: " + players[i].getSum() + "\n");
                 while (!oneDone) {
                     oneDone = game.playerTurn(players[i]);
                     points[i] = players[i].getSum();
@@ -190,7 +193,6 @@ public class GameRunner {
                 theDeck = new Deck();
             }
             else System.exit(0);
-
         } //// End of additional round loop;
     }
 }
