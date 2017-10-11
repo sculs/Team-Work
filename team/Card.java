@@ -22,11 +22,11 @@ public class Card {
 
     public String toString() {
 
-        String s;
+        String e;
 
 
         if (rank.getRankString().equals("10"))
-        s =  "" +
+        e =  "" +
                 "┏───────┓\n" +
                 "┃       ┃\n" +
                 "┃       ┃\n" +
@@ -35,7 +35,7 @@ public class Card {
                 "┃       ┃\n" +
                 "┗───────┛";
         else
-            s= "" +
+            e= "" +
                     "┏───────┓\n" +
                     "┃       ┃\n" +
                     "┃       ┃\n" +
@@ -44,7 +44,7 @@ public class Card {
                     "┃       ┃\n" +
                     "┗───────┛";
 
-        return s;
+        return e;
 
     }
 }
