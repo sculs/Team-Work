@@ -34,7 +34,6 @@ public class GameRunner {
         Deck theDeck = new Deck();
 
 //////// The Game Starts!!! ///////////////////////////////////////////////////
-        labelA:
         for (;;){   // Loop here is prepared for additional rounds;
 
 //-------------------------------------------------------------------------------
@@ -78,7 +77,6 @@ public class GameRunner {
 
 //-------------------------------------------------------------------------------
             // Thirdly, each player HIT/STAY respectively, then dealer process afterwards;
-
             for (int i = 0; i < numberOfPlayers; i++) {
                 players[i].printHand(players[i].getName(), true);
                 System.out.println("Total points are: " + players[i].getSum() + "\n");
@@ -90,7 +88,6 @@ public class GameRunner {
                     oneDone = false;
             }
             dealer.printHand(dealer.getName(), true);
-
 
             System.out.println("Total for dealer: " + dealer.getSum() + "\n");
             while (!dealerDone) {
@@ -123,15 +120,15 @@ public class GameRunner {
                 int oneSum = players[i].getSum();
                 System.out.printf("Total for %s: %s%n", players[i].getName(), oneSum);
 
-                // player wins when his points below 21 and higher and the dealer, or dealer busted;
-                if ((oneSum > dealerSum && oneSum <= 21) || dealerSum > 21) {
-                    System.out.printf("%s wins against the dealer!%n", players[i].getName());
-                    money[i] += 2 * bet[i];
-                }
-
-                else if (oneSum == 21 && players[i].getNumCards() == 2){
+                //  player always wins if he/she got BLACKJACK!
+                if (oneSum == 21 && players[i].getNumCards() == 2) {
                     System.out.printf("%s wins against the dealer with BLACKJACK!%n", players[i].getName());
                     money[i] += 4 * bet[i];
+                }
+                // player wins when his points below 21 and higher and the dealer, or dealer busted;
+                else if ((oneSum > dealerSum && oneSum <= 21) || dealerSum > 21) {
+                    System.out.printf("%s wins against the dealer!%n", players[i].getName());
+                    money[i] += 2 * bet[i];
                 }
                 // (oneSum <= dealerSum || oneSum > 21) && dealerSum <= 21
                 else {

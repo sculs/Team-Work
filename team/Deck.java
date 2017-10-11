@@ -8,8 +8,6 @@ public class Deck {
 
     ArrayList<Card> cards = new ArrayList<>();
 
-
-
     Deck() {
 
         for (int i = 0; i < 8; i++) {

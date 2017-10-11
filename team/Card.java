@@ -24,7 +24,6 @@ public class Card {
 
         String e;
 
-
         if (rank.getRankString().equals("10"))
         e =  "" +
                 "┏───────┓\n" +

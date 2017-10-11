@@ -1,14 +1,10 @@
 package team;
 
-import java.util.concurrent.TimeUnit;
-
 public class Game {
 
-//    private Player dealer = new Player("Dealer");
     private Deck theDeck = new Deck();
     private boolean oneDone = false;
     private boolean dealerDone = false;
-    boolean blackjack = false;
 
     //// Method for player HIT/STAY /////////////////////////////////////////
     protected boolean playerTurn(Player player) {
@@ -16,13 +12,10 @@ public class Game {
         oneDone = false;
         while (!oneDone) {
             if (player.getSum() == 21) {
-                System.out.println("BLACKJACK");
+                System.out.println("***BLACKJACK***");
                 System.out.println(player.getName());
-                oneDone = true;
-                return oneDone;
+                return true;
             }
-
-
             System.out.println(player.getName() + ", Hit or Stay? (Enter H or S): ");
             String ans = GameRunner.sc.next();
 
