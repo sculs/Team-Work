@@ -1,2 +1,2 @@
 # Team-Work
-Black Jack
+A console Black-Jack game written in Java
